@@ -36,18 +36,18 @@ jobs:
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v1
 
-      # Runs a set of commands using the runners shell
-      - name: Build & push Docker image
-        env:
-          DB_HOST: ${{secrets.DB_HOST}}
-          DB_USER: ${{secrets.DB_USER}}
-          DB_PASSWORD: ${{secrets.DB_PASSWORD}}
-          DB_NAME: ${{secrets.DB_NAME}}
-          ECR_REGISTRY: ${{steps.login-ecr.outputs.registry}}
-          ECR_REPOSITRY: employee_demo
-          IMAGE_TAG: team1-api
-        run: |
-          docker build --build-arg DB_HOST=${DB_HOST} --build-arg DB_NAME=${DB_NAME} --build-arg DB_PASSWORD=${DB_PASSWORD} --build-arg DB_NAME=${DB_NAME} -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-          echo test, and deploy your project.
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+    # Runs a set of commands using the runners shell
+    - name: Build & push Docker image
+      env:
+        DB_HOST: ${{secrets.DB_HOST}}
+        DB_USER: ${{secrets.DB_USER}}
+        DB_PASSWORD: ${{secrets.DB_PASSWORD}}
+        DB_NAME: ${{secrets.DB_NAME}}
+        ECR_REGISTRY: ${{steps.login-ecr.outputs.registry}}
+        ECR_REPOSITRY: employee_demo
+        IMAGE_TAG: team1-api
+      run: |
+        docker build --build-arg DB_HOST=${DB_HOST} --build-arg DB_NAME=${DB_NAME} --build-arg DB_PASSWORD=${DB_PASSWORD} --build-arg DB_NAME=${DB_NAME} -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+        echo test, and deploy your project.
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
